@@ -1,0 +1,363 @@
+openapi: 3.0.3
+info:
+  title: Matrícula Funcionários - OpenAPI 3.0
+  description: |-
+    API responsible for a complete CRUD of vendors
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: ricardo.fer.oliveira964@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: https://petstore3.swagger.io/api/v3
+tags:
+  - name: vendor
+    description: Everything about vendors
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+paths:
+  /vendor:
+    put:
+      tags:
+        - vendor
+      summary: Update an existing vendor
+      description: Update an existing vendor by Id
+      operationId: updateVendor
+      requestBody:
+        description: Update an existent vendor in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vendor'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Vendor'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Vendor'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vendor'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Vendor'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Vendor not found
+        '422':
+          description: Validation exception
+      security:
+        - petstore_auth:
+            - write:vendor
+            - read:vendor
+    post:
+      tags:
+        - vendor
+      summary: Add a new vendor to the store
+      description: Add a new vendor to the store
+      operationId: addVendor
+      requestBody:
+        description: Create a new vendor in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vendor'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Vendor'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Vendor'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vendor'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Vendor'
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+      security:
+        - petstore_auth:
+            - write:vendor
+            - read:vendor
+  /vendor/findByBranch:
+    get:
+      tags:
+        - vendor
+      summary: Find vendors by branch
+      description: Multiple vendors can be found by branch.
+      operationId: findVendorsByBranch
+      parameters:
+        - name: name
+          in: query
+          description: name of branch
+          required: false
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vendor'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vendor'
+        '400':
+          description: Invalid branch name
+      security:
+        - petstore_auth:
+            - write:vendor
+            - read:vendor
+  /vendor/findByContractType:
+    get:
+      tags:
+        - vendor
+      summary: Find vendors by contract type
+      description: Multiple vendors can be found by contract type.
+      operationId: findVendorsByContractType
+      parameters:
+        - name: contractType
+          in: query
+          description: contract type of vendors
+          required: false
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vendor'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vendor'
+        '400':
+          description: Invalid branch name
+      security:
+        - petstore_auth:
+            - write:vendor
+            - read:vendor
+  /vendor/{registration}:
+    get:
+      tags:
+        - vendor
+      summary: Find vendor by registration
+      description: Returns a single pet
+      operationId: getVendorByRegistrarion
+      parameters:
+        - name: registration
+          in: path
+          description: registration of vendor to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vendor'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Vendor'
+        '400':
+          description: Invalid registration supplied
+        '404':
+          description: vendor not found
+      security:
+        - api_key: []
+        - petstore_auth:
+            - write:vendor
+            - read:vendor
+    post:
+      tags:
+        - vendor
+      summary: Updates a vendor with form data
+      description: ''
+      operationId: updateVendorWithData
+      parameters:
+        - name: registration
+          in: path
+          description: Registration of vendor that needs to be updated
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: Name of pet that needs to be updated
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Status of pet that needs to be updated
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid input
+      security:
+        - petstore_auth:
+            - write:vendor
+            - read:vendor
+    delete:
+      tags:
+        - vendor
+      summary: Deletes a vendor
+      description: delete a vendor
+      operationId: deleteVendor
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: registration
+          in: path
+          description: Vendor registration to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid vendor registration
+      security:
+        - petstore_auth:
+            - write:vendor
+            - read:vendor
+components:
+  schemas:
+    Branch:
+      required:
+        - id
+        - name
+        - document
+        - city
+        - UF
+        - type
+        - active
+        - registerDate
+        - lastUpdateDate
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        document:
+          type: string
+        city:
+          type: string
+        UF:
+          type: string
+        type:
+          type: string
+        active:
+          type: boolean
+        registerDate:
+          type: string
+        lastUpdateDate:
+          type: string
+      xml:
+        name: branch
+    Vendor:
+      required:
+        - registration
+        - name
+        - document
+        - email
+        - contractType
+        - branch
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        registration:
+          type: string
+          example: 98767367-OUT
+        name:
+          type: string
+          example: John
+        birthday:
+          type: string
+          example: "2017-01-01"
+        document:
+          type: string
+          example: "CPF ou CNPJ"
+        email:
+          type: string
+          example: "rese@email.com"
+        contractType:
+          type: string
+          description: vendor type in the store
+          enum:
+            - outsourcing
+            - clt
+            - pj
+        branch:
+          $ref: '#/components/schemas/Branch'
+      xml:
+        name: vendor
+  requestBodies:
+    Vendor:
+      description: Pet object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Vendor'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Vendor'
+  securitySchemes:
+    petstore_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+          scopes:
+            write:pets: modify pets in your account
+            read:pets: read your pets
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
