@@ -12,7 +12,11 @@ public class DeleteVendorService {
         this.vendorRepository = vendorRepository;
     }
 
-    public void delete(long id) {
-        vendorRepository.deleteById(id);
+    public void delete(String registration) {
+        if (vendorRepository.findByRegistration(registration).isPresent()) {
+            vendorRepository.deleteByRegistration(registration);
+        } else {
+            throw new RuntimeException("Seller not found with registration: " + registration);
+        }
     }
 }

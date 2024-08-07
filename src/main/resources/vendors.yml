@@ -34,13 +34,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Vendor'
+              $ref: '#/components/schemas/VendorRequest'
           application/xml:
             schema:
-              $ref: '#/components/schemas/Vendor'
+              $ref: '#/components/schemas/VendorRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Vendor'
+              $ref: '#/components/schemas/VendorRequest'
         required: true
       responses:
         '200':
@@ -48,10 +48,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Vendor'
+                $ref: '#/components/schemas/VendorResponse'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Vendor'
+                $ref: '#/components/schemas/VendorResponse'
         '400':
           description: Invalid ID supplied
         '404':
@@ -73,13 +73,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Vendor'
+              $ref: '#/components/schemas/VendorRequest'
           application/xml:
             schema:
-              $ref: '#/components/schemas/Vendor'
+              $ref: '#/components/schemas/VendorRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Vendor'
+              $ref: '#/components/schemas/VendorRequest'
         required: true
       responses:
         '200':
@@ -87,10 +87,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Vendor'
+                $ref: '#/components/schemas/VendorResponse'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Vendor'
+                $ref: '#/components/schemas/VendorResponse'
         '400':
           description: Invalid input
         '422':
@@ -124,12 +124,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Vendor'
+                  $ref: '#/components/schemas/VendorResponse'
             application/xml:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Vendor'
+                  $ref: '#/components/schemas/VendorResponse'
         '400':
           description: Invalid branch name
       security:
@@ -161,12 +161,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Vendor'
+                  $ref: '#/components/schemas/VendorResponse'
             application/xml:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Vendor'
+                  $ref: '#/components/schemas/VendorResponse'
         '400':
           description: Invalid branch name
       security:
@@ -193,10 +193,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Vendor'
+                $ref: '#/components/schemas/VendorResponse'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Vendor'
+                $ref: '#/components/schemas/VendorResponse'
         '400':
           description: Invalid registration supplied
         '404':
@@ -298,15 +298,7 @@ components:
           type: string
       xml:
         name: branch
-    Vendor:
-      required:
-        - registration
-        - name
-        - document
-        - email
-        - contractType
-        - branch
-      type: object
+    VendorResponse:
       properties:
         id:
           type: integer
@@ -336,18 +328,53 @@ components:
             - pj
         branch:
           $ref: '#/components/schemas/Branch'
+    VendorRequest:
+      required:
+        - registration
+        - name
+        - document
+        - email
+        - contractType
+        - branch
+      type: object
+      properties:
+        registration:
+          type: string
+          example: 98767367-OUT
+        name:
+          type: string
+          example: John
+        birthday:
+          type: string
+          example: "2017-01-01"
+        document:
+          type: string
+          example: "CPF ou CNPJ"
+        email:
+          type: string
+          example: "rese@email.com"
+        contractType:
+          type: string
+          description: vendor type in the store
+          enum:
+            - outsourcing
+            - clt
+            - pj
+        branch:
+          type: string
+          description: branch name
       xml:
         name: vendor
   requestBodies:
-    Vendor:
-      description: Pet object that needs to be added to the store
+    VendorRequest:
+      description: vendor object that needs to be added to the store
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Vendor'
+            $ref: '#/components/schemas/VendorRequest'
         application/xml:
           schema:
-            $ref: '#/components/schemas/Vendor'
+            $ref: '#/components/schemas/VendorRequest'
   securitySchemes:
     petstore_auth:
       type: oauth2

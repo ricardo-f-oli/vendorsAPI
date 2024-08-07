@@ -11,7 +11,8 @@ public class CreateVendorService {
     public CreateVendorService(VendorRepository vendorRepository) {
         this.vendorRepository = vendorRepository;
     }
-    public void createVendor(Vendor vendor) {
-
+    public Vendor createVendor(Vendor vendor) {
+        Vendor vendorc = new Vendor();
+        return vendorc;
     }
 }

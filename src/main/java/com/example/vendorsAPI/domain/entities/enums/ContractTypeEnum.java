@@ -1,6 +1,6 @@
 package com.example.vendorsAPI.domain.entities.enums;
 
-import com.example.vendorsAPI.model.Vendor;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
