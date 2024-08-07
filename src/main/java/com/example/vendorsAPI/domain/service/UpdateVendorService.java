@@ -10,6 +10,10 @@ public class UpdateVendorService {
     public UpdateVendorService(VendorRepository vendorRepository) {
         this.vendorRepository = vendorRepository;
     }
+
+    public Vendor updateVendor(Vendor vendor) {
+        return vendorRepository.save(vendor);
+    }
     public void save(Vendor vendor) {
 
     }
