@@ -17,12 +17,12 @@ public class SearchVendorService {
         return vendorRepository.findAll();
     }
 
-    public List<Vendor> findByBranch(String branchName) {
-        return vendorRepository.findByBranch(branchName);
-    }
+//    public List<Vendor> findByBranch(String branchName) {
+//        return vendorRepository.findByBranch(branchName);
+//    }
 
     public List<Vendor> findByContractType(String contractType) {
-        return vendorRepository.findByContractType(ContractTypeEnum.valueOf(contractType));
+        return vendorRepository.findByContractTypeEnum(ContractTypeEnum.valueOf(contractType));
     }
     public Vendor findByRegistration(String registration) {
         Vendor vendor = new Vendor();

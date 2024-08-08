@@ -12,7 +12,7 @@ public class CreateVendorService {
         this.vendorRepository = vendorRepository;
     }
     public Vendor createVendor(Vendor vendor) {
-        Vendor vendorc = new Vendor();
-        return vendorc;
+        vendorRepository.save(vendor);
+        return vendor;
     }
 }
