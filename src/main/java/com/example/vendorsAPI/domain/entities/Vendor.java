@@ -2,17 +2,15 @@ package com.example.vendorsAPI.domain.entities;
 
 import com.example.vendorsAPI.domain.entities.enums.ContractTypeEnum;
 import com.example.vendorsAPI.validator.Document;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import javax.validation.constraints.Pattern;
+import java.util.Date;
 
 @Entity
 @AllArgsConstructor
@@ -24,23 +22,22 @@ public class Vendor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull
     private String registration;
 
-    @NotNull
+    @NotBlank
     private String name;
 
-    private LocalDate birthday;
+    private Date birthday;
 
-    @NotNull
-    @Document
+    @NotBlank
     private String document;
 
     @NotNull
-    @Email
+    @Email (regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}", flags = Pattern.Flag.CASE_INSENSITIVE)
     private String email;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private ContractTypeEnum contractTypeEnum;
 
     @NotNull

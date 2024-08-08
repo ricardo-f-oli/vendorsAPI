@@ -19,8 +19,8 @@ public class VendorMapper {
         } catch (ParseException e) {
             throw new IllegalArgumentException("Invalid date format. Please use dd-MM-yyyy");
         }
-        vendorDto.setDocument(vendorRequest.getDocument());
         vendorDto.setEmail(vendorRequest.getEmail());
+        vendorDto.setDocument(vendorRequest.getDocument());
         vendorDto.setContractTypeEnum(toContractTypeEnum(vendorRequest.getContractType()));
         return vendorDto;
     }

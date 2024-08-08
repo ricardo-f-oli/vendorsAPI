@@ -1,12 +1,14 @@
 package com.example.vendorsAPI.validator;
 
+import com.example.vendorsAPI.domain.entities.Vendor;
 import com.example.vendorsAPI.domain.repository.VendorRepository;
+import com.example.vendorsAPI.model.VendorRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import java.util.InputMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class DocumentValidator implements ConstraintValidator<Document, String> {
+public class DocumentValidator implements ConstraintValidator<Document, VendorRequest> {
 
     @Autowired
     private VendorRepository vendorRepository;
@@ -16,14 +18,28 @@ public class DocumentValidator implements ConstraintValidator<Document, String> 
     }
 
     @Override
-    public boolean isValid(String document, ConstraintValidatorContext context) {
-        if (document == null || document.isEmpty()) {
+    public boolean isValid(VendorRequest vendorRequest, ConstraintValidatorContext context) {
+        if (vendorRequest.getDocument() == null || vendorRequest.getContractType() == null) {
             return false;
         }
-        if (!isValidCPF(document) && !isValidCNPJ(document)) {
+
+        if(!isUnique(vendorRequest.getDocument())){
             return false;
         }
-        return isUnique(document);
+
+        String document = vendorRequest.getDocument();
+        VendorRequest.ContractTypeEnum contractType = vendorRequest.getContractType();
+
+        switch (contractType) {
+            case CLT:
+            case OUTSOURCING:
+                return isValidCPF(document);
+            case PJ:
+                return isValidCNPJ(document);
+            default:
+                return false;
+        }
+
     }
 
     private boolean isValidCPF(String cpf) {
