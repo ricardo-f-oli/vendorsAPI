@@ -1,34 +1,35 @@
 package com.example.vendorsAPI.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Embeddable;
+import lombok.*;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
-
-@Entity
+@Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class Branch {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
-    private String name;
-    private String document;
-    private String city;
-    private String UF;
-    private String type;
+
+//    @JsonProperty("ID")
+//    private long ID;
+    @JsonProperty("Nome")
+    private String branchName;
+    @JsonProperty("CNPJ")
+    private String branchCNPJ;
+    @JsonProperty("Cidade")
+    private String branchCity;
+    @JsonProperty("UF")
+    private String branchUF;
+    @JsonProperty("Tipo")
+    private String branchType;
+    @JsonProperty("Ativo")
     private Boolean active;
-    @JsonProperty("dataCadastro")
-    private LocalDate registerDate;
-    @JsonProperty("ultimaAtualizacao")
-    private LocalDate lastUpdateDate;
+    @JsonProperty("Data Cadastro")
+    private LocalDate branchRegisterDate;
+    @JsonProperty("Última Atualização")
+    private LocalDate branchLastUpdateDate;
 
 }

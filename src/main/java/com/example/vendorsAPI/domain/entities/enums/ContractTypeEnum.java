@@ -6,11 +6,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum ContractTypeEnum {
 
-    OUTSOURCING("outsourcing"),
+    OUT("OUTSOURCING"),
 
-    CLT("clt"),
+    CLT("CLT"),
 
-    PJ("pj");
+    PJ("PJ");
 
     private String value;
 
@@ -31,7 +31,7 @@ public enum ContractTypeEnum {
     @JsonCreator
     public static ContractTypeEnum fromValue(String value) {
         for (ContractTypeEnum b :ContractTypeEnum.values()) {
-            if (b.value.equals(value)) {
+            if (b.value.equals(value.toUpperCase())) {
                 return b;
             }
         }

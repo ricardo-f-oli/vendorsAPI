@@ -22,7 +22,7 @@ public class SearchVendorService {
 //    }
 
     public List<Vendor> findByContractType(String contractType) {
-        return vendorRepository.findByContractTypeEnum(ContractTypeEnum.valueOf(contractType));
+        return vendorRepository.findByContractTypeEnum(ContractTypeEnum.fromValue(contractType));
     }
     public Vendor findByRegistration(String registration) {
         Vendor vendor = new Vendor();

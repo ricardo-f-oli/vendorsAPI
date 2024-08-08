@@ -23,7 +23,7 @@ public class CreateVendorController {
     @PostMapping("/vendor")
     public Vendor CreateVendor(@Valid @RequestBody VendorRequest vendorRequest){
         Vendor vendor = VendorMapper.toDto(vendorRequest);
-        return createVendorService.createVendor(vendor);
+        return createVendorService.createVendor(vendor, vendorRequest.getBranch());
     }
 
 }

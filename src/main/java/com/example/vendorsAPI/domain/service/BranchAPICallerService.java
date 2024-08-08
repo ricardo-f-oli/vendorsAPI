@@ -14,11 +14,9 @@ public class BranchAPICallerService {
     @Autowired
     private RestTemplate restTemplate;
 
-    private final String EXTERNAL_API_URL = "http://mock-service:1080/external-api/branch";
-
     public Branch getBranch(String name) {
+        String EXTERNAL_API_URL = "http://localhost:1080/external-api/branch/" + name;
         String url = UriComponentsBuilder.fromHttpUrl(EXTERNAL_API_URL)
-                .queryParam("name", name)
                 .toUriString();
         return restTemplate.getForObject(url, Branch.class);
     }

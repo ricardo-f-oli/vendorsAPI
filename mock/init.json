@@ -17,9 +17,6 @@
         "Data Cadastro": "2023-08-01",
         "Última Atualização": "2023-08-05"
       }
-    },
-    "headers": {
-      "Content-Type": "application/json"
     }
   },
 
@@ -41,9 +38,6 @@
         "Data Cadastro": "2023-08-01",
         "Última Atualização": "2023-08-05"
       }
-    },
-    "headers": {
-      "Content-Type": "application/json"
     }
   },
 
@@ -65,9 +59,6 @@
         "Data Cadastro": "2023-08-01",
         "Última Atualização": "2023-08-05"
       }
-    },
-    "headers": {
-      "Content-Type": "application/json"
     }
   },
 
@@ -89,9 +80,6 @@
         "Data Cadastro": "2023-08-01",
         "Última Atualização": "2023-08-05"
       }
-    },
-    "headers": {
-      "Content-Type": "application/json"
     }
   },
 
@@ -105,9 +93,6 @@
       "body": {
         "message": "Branch not found"
       }
-    },
-    "headers": {
-      "Content-Type": "application/json"
     }
   }
 
