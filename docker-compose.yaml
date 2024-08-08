@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: vendorsdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - vendors-network
+
+  mock-service:
+    image: mockserver/mockserver
+    ports:
+      - "1080:1080"
+    networks:
+      - vendors-network
+
+networks:
+  vendors-network:
+    driver: bridge
