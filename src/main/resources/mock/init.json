@@ -1,0 +1,99 @@
+[
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/external-api/branch/FilialNorte"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "body": {
+        "ID": 1,
+        "Nome": "FilialNorte",
+        "CNPJ": "12345678000195",
+        "Cidade": "São Paulo",
+        "UF": "SP",
+        "Tipo": "Matriz",
+        "Ativo": true,
+        "Data Cadastro": "2023-08-01",
+        "Última Atualização": "2023-08-05"
+      }
+    }
+  },
+
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/external-api/branch/FilialOeste"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "body": {
+        "ID": 2,
+        "Nome": "FilialOeste",
+        "CNPJ": "12345678000195",
+        "Cidade": "Campo Grande",
+        "UF": "MS",
+        "Tipo": "Administarcao",
+        "Ativo": true,
+        "Data Cadastro": "2023-08-01",
+        "Última Atualização": "2023-08-05"
+      }
+    }
+  },
+
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/external-api/branch/FilialLeste"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "body": {
+        "ID": 3,
+        "Nome": "FilialLeste",
+        "CNPJ": "12345678000195",
+        "Cidade": "Campinas",
+        "UF": "SP",
+        "Tipo": "Frete",
+        "Ativo": false,
+        "Data Cadastro": "2023-08-01",
+        "Última Atualização": "2023-08-05"
+      }
+    }
+  },
+
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/external-api/branch/FilialSul"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "body": {
+        "ID": 4,
+        "Nome": "FilialSul",
+        "CNPJ": "12345678000195",
+        "Cidade": "Brasilia",
+        "UF": "DF",
+        "Tipo": "Maquinarios",
+        "Ativo": true,
+        "Data Cadastro": "2023-08-01",
+        "Última Atualização": "2023-08-05"
+      }
+    }
+  },
+
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/external-api/branch/NonExistent"
+    },
+    "httpResponse": {
+      "statusCode": 404,
+      "body": {
+        "message": "Branch not found"
+      }
+    }
+  }
+
+]
