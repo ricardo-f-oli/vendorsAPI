@@ -1,21 +1,18 @@
 package com.example.vendorsAPI.domain.entities;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDate;
 
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Branch {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     private String document;
@@ -23,7 +20,9 @@ public class Branch {
     private String UF;
     private String type;
     private Boolean active;
-    private Date registerDate;
-    private Date lastUpdateDate;
+    @JsonProperty("dataCadastro")
+    private LocalDate registerDate;
+    @JsonProperty("ultimaAtualizacao")
+    private LocalDate lastUpdateDate;
 
 }

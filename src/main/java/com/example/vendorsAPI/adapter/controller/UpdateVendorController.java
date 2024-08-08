@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/v1")
 public class UpdateVendorController {
@@ -19,7 +21,7 @@ public class UpdateVendorController {
     }
 
     @PutMapping("/vendor")
-    public Vendor updateVendor(@RequestBody VendorRequest vendorRequest) {
+    public Vendor updateVendor(@Valid @RequestBody VendorRequest vendorRequest) {
         Vendor vendor = VendorMapper.toDto(vendorRequest);
         return updateVendorService.updateVendor(vendor);
     }
