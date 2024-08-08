@@ -40,7 +40,7 @@ public class Vendor {
     @Enumerated(EnumType.STRING)
     private ContractTypeEnum contractTypeEnum;
 
-    @NotNull
+    @OneToOne(cascade = CascadeType.ALL)
     private Branch branch;
 
 }

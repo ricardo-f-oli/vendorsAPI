@@ -15,10 +15,10 @@ public class SearchVendorController {
         this.searchVendorService = searchVendorService;
     }
 
-    @GetMapping("/vendor/findByBranch")
-    public List<Vendor> findByBranch(@RequestParam String branchName) {
-        return searchVendorService.findByBranch(branchName);
-    }
+//    @GetMapping("/vendor/findByBranch")
+//    public List<Vendor> findByBranch(@RequestParam String branchName) {
+//        return searchVendorService.findByBranch(branchName);
+//    }
 
     @GetMapping("/vendor/findByContractType")
     public List<Vendor> findByContractType(@RequestParam String contractType) {

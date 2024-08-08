@@ -15,9 +15,9 @@ public interface VendorRepository extends JpaRepository<Vendor, Long> {
 
     void deleteByRegistration(String registration);
 
-    List<Vendor> findByBranch(String branchName);
+//    List<Vendor> findByBranch(String branchName);
 
-    List<Vendor> findByContractType(ContractTypeEnum contractType);
+    List<Vendor> findByContractTypeEnum(ContractTypeEnum contractType);
 
     boolean existsByDocument(String document);
 

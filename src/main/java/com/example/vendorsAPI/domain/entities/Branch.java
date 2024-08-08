@@ -2,18 +2,24 @@ package com.example.vendorsAPI.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 
-@Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class Branch {
-
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long Id;
     private String name;
     private String document;
     private String city;
