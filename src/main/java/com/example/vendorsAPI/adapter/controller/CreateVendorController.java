@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/v1")
 public class CreateVendorController {
@@ -19,7 +21,7 @@ public class CreateVendorController {
         this.createVendorService = createVendorService;
     }
     @PostMapping("/vendor")
-    public Vendor CreateVendor(@RequestBody VendorRequest vendorRequest){
+    public Vendor CreateVendor(@Valid @RequestBody VendorRequest vendorRequest){
         Vendor vendor = VendorMapper.toDto(vendorRequest);
         return createVendorService.createVendor(vendor);
     }
