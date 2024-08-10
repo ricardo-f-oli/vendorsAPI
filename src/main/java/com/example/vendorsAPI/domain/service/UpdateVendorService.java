@@ -14,7 +14,4 @@ public class UpdateVendorService {
     public Vendor updateVendor(Vendor vendor) {
         return vendorRepository.save(vendor);
     }
-    public void save(Vendor vendor) {
-
-    }
 }

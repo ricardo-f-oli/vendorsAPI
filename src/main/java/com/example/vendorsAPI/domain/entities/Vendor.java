@@ -1,7 +1,6 @@
 package com.example.vendorsAPI.domain.entities;
 
 import com.example.vendorsAPI.domain.entities.enums.ContractTypeEnum;
-import com.example.vendorsAPI.validator.Document;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
