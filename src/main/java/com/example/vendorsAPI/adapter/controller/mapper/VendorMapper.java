@@ -5,8 +5,10 @@ import com.example.vendorsAPI.domain.entities.enums.ContractTypeEnum;
 import com.example.vendorsAPI.exceptions.InvalidBirthDayException;
 import com.example.vendorsAPI.exceptions.InvalidDocumentException;
 import com.example.vendorsAPI.exceptions.InvalidEmailException;
+import com.example.vendorsAPI.exceptions.VendorFormatException;
 import com.example.vendorsAPI.model.VendorRequest;
 
+import javax.naming.InvalidNameException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.InputMismatchException;
@@ -20,6 +22,9 @@ public class VendorMapper {
 
     public static Vendor toDto(VendorRequest vendorRequest) {
         Vendor vendorDto = new Vendor();
+        if (vendorRequest.getName() == null || vendorRequest.getName().isEmpty()) {
+            throw new VendorFormatException("Nome do vendedor nao pode ser nulo!");
+        }
         vendorDto.setName(vendorRequest.getName());
         if(vendorRequest.getBirthday() != null) {
             try {
@@ -35,6 +40,9 @@ public class VendorMapper {
         isValidDocument(vendorRequest);
         vendorDto.setDocument(vendorRequest.getDocument());
         vendorDto.setContractTypeEnum(toContractTypeEnum(vendorRequest.getContractType()));
+        if(vendorRequest.getBranch() == null){
+            throw new VendorFormatException("A filial nao pode ser nula!");
+        }
         return vendorDto;
     }
 
@@ -44,6 +52,12 @@ public class VendorMapper {
 
     public static void isValidDocument(VendorRequest vendorRequest) {
         String document = vendorRequest.getDocument();
+        if(document == null || document.isEmpty()) {
+            throw new VendorFormatException("Documento nao pode ser nulo!");
+        }
+        if(vendorRequest.getContractType() == null) {
+            throw new VendorFormatException("Tipo de contrato nao pode ser nulo!");
+        }
         VendorRequest.ContractTypeEnum contractType = vendorRequest.getContractType();
 
         switch (contractType) {
@@ -128,7 +142,7 @@ public class VendorMapper {
 
     public static boolean isValidEmail(String email) {
         if (email == null) {
-            return false;
+            throw new VendorFormatException("Email nao pode ser nulo!");
         }
         return EMAIL_PATTERN.matcher(email).matches();
     }

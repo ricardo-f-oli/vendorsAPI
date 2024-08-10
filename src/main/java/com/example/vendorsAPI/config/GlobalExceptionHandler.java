@@ -3,6 +3,7 @@ package com.example.vendorsAPI.config;
 import com.example.vendorsAPI.exceptions.InvalidBirthDayException;
 import com.example.vendorsAPI.exceptions.InvalidDocumentException;
 import com.example.vendorsAPI.exceptions.InvalidEmailException;
+import com.example.vendorsAPI.exceptions.VendorFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -23,6 +24,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidBirthDayException.class)
     public ResponseEntity<String> handleBirthDayException(InvalidBirthDayException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(VendorFormatException.class)
+    public ResponseEntity<String> handleBirthDayException(VendorFormatException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }
