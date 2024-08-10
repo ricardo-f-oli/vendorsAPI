@@ -10,25 +10,26 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.11
-externalDocs:
-  description: Find out more about Swagger
-  url: http://swagger.io
 servers:
-  - url: https://petstore3.swagger.io/api/v3
+  - url: localhost:8080/v1
 tags:
   - name: vendor
     description: Everything about vendors
-    externalDocs:
-      description: Find out more
-      url: http://swagger.io
 paths:
-  /vendor:
+  /{id}:
     put:
       tags:
         - vendor
       summary: Update an existing vendor
       description: Update an existing vendor by Id
       operationId: updateVendor
+      parameters:
+        - name: id
+          in: path
+          description: id of the vendor to be updated
+          required: true
+          schema:
+            type: string
       requestBody:
         description: Update an existent vendor in the store
         content:
@@ -62,6 +63,7 @@ paths:
         - petstore_auth:
             - write:vendor
             - read:vendor
+  /vendor:
     post:
       tags:
         - vendor
@@ -95,43 +97,6 @@ paths:
           description: Invalid input
         '422':
           description: Validation exception
-      security:
-        - petstore_auth:
-            - write:vendor
-            - read:vendor
-  /vendor/findByBranch:
-    get:
-      tags:
-        - vendor
-      summary: Find vendors by branch
-      description: Multiple vendors can be found by branch.
-      operationId: findVendorsByBranch
-      parameters:
-        - name: name
-          in: query
-          description: name of branch
-          required: false
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/VendorResponse'
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/VendorResponse'
-        '400':
-          description: Invalid branch name
       security:
         - petstore_auth:
             - write:vendor
@@ -206,36 +171,6 @@ paths:
         - petstore_auth:
             - write:vendor
             - read:vendor
-    post:
-      tags:
-        - vendor
-      summary: Updates a vendor with form data
-      description: ''
-      operationId: updateVendorWithData
-      parameters:
-        - name: registration
-          in: path
-          description: Registration of vendor that needs to be updated
-          required: true
-          schema:
-            type: string
-        - name: name
-          in: query
-          description: Name of pet that needs to be updated
-          schema:
-            type: string
-        - name: status
-          in: query
-          description: Status of pet that needs to be updated
-          schema:
-            type: string
-      responses:
-        '400':
-          description: Invalid input
-      security:
-        - petstore_auth:
-            - write:vendor
-            - read:vendor
     delete:
       tags:
         - vendor
@@ -282,23 +217,39 @@ components:
           format: int64
         name:
           type: string
+          example: "FilialNorte"
         document:
           type: string
+          example: "12345678000195"
         city:
           type: string
+          example: "São Paulo"
         UF:
           type: string
+          example: "SP"
         type:
           type: string
+          example: "Matriz"
         active:
           type: boolean
+          example: true
         registerDate:
           type: string
+          example: "01-08-2024"
         lastUpdateDate:
           type: string
+          example: "10-08-2024"
       xml:
         name: branch
     VendorResponse:
+      required:
+        - id
+        - registration
+        - name
+        - document
+        - email
+        - contractType
+        - branch
       properties:
         id:
           type: integer
@@ -312,7 +263,7 @@ components:
           example: John
         birthday:
           type: string
-          example: "2017-01-01"
+          example: "01-01-2017"
         document:
           type: string
           example: "CPF ou CNPJ"
@@ -330,7 +281,6 @@ components:
           $ref: '#/components/schemas/Branch'
     VendorRequest:
       required:
-        - registration
         - name
         - document
         - email
@@ -338,15 +288,12 @@ components:
         - branch
       type: object
       properties:
-        registration:
-          type: string
-          example: 98767367-OUT
         name:
           type: string
           example: John
         birthday:
           type: string
-          example: "2017-01-01"
+          example: "01-01-2017"
         document:
           type: string
           example: "CPF ou CNPJ"
@@ -363,6 +310,7 @@ components:
         branch:
           type: string
           description: branch name
+          example: "branch name"
       xml:
         name: vendor
   requestBodies:
