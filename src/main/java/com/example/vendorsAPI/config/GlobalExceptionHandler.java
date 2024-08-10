@@ -1,5 +1,6 @@
 package com.example.vendorsAPI.config;
 
+import com.example.vendorsAPI.exceptions.InvalidBirthDayException;
 import com.example.vendorsAPI.exceptions.InvalidDocumentException;
 import com.example.vendorsAPI.exceptions.InvalidEmailException;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidEmailException.class)
     public ResponseEntity<String> handleInvalidEmailException(InvalidEmailException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidBirthDayException.class)
+    public ResponseEntity<String> handleBirthDayException(InvalidBirthDayException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }

@@ -2,6 +2,7 @@ package com.example.vendorsAPI.adapter.controller.mapper;
 
 import com.example.vendorsAPI.domain.entities.Vendor;
 import com.example.vendorsAPI.domain.entities.enums.ContractTypeEnum;
+import com.example.vendorsAPI.exceptions.InvalidBirthDayException;
 import com.example.vendorsAPI.exceptions.InvalidDocumentException;
 import com.example.vendorsAPI.exceptions.InvalidEmailException;
 import com.example.vendorsAPI.model.VendorRequest;
@@ -20,16 +21,18 @@ public class VendorMapper {
     public static Vendor toDto(VendorRequest vendorRequest) {
         Vendor vendorDto = new Vendor();
         vendorDto.setName(vendorRequest.getName());
-        try {
+        if(vendorRequest.getBirthday() != null) {
+            try {
             vendorDto.setBirthday(dateFormat.parse(vendorRequest.getBirthday()));
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("Invalid date format. Please use dd-MM-yyyy");
+            } catch (ParseException e) {
+            throw new InvalidBirthDayException("Formato inválido de data de aniversário, utilizar dd-MM-yyyy!");
+            }
         }
         if (!isValidEmail(vendorRequest.getEmail())) {
             throw new InvalidEmailException("O email fornecido é inválido.");
         }
         vendorDto.setEmail(vendorRequest.getEmail());
-        isValid(vendorRequest);
+        isValidDocument(vendorRequest);
         vendorDto.setDocument(vendorRequest.getDocument());
         vendorDto.setContractTypeEnum(toContractTypeEnum(vendorRequest.getContractType()));
         return vendorDto;
@@ -39,7 +42,7 @@ public class VendorMapper {
         return ContractTypeEnum.valueOf(contractTypeEnum.name());
     }
 
-    public static void isValid(VendorRequest vendorRequest) {
+    public static void isValidDocument(VendorRequest vendorRequest) {
         String document = vendorRequest.getDocument();
         VendorRequest.ContractTypeEnum contractType = vendorRequest.getContractType();
 
@@ -55,7 +58,7 @@ public class VendorMapper {
     public static void isValidCPF(String cpf) {
         cpf = cpf.replaceAll("\\D", "");
         if (cpf.length() != 11 || cpf.matches("(\\d)\\1{10}"))
-            throw new InvalidDocumentException("CPF deve ser somente para CLT ou OUTSOURCING!");
+            throw new InvalidDocumentException("CPF com formato inválido!");
 
         try {
             char dig10, dig11;
@@ -82,14 +85,14 @@ public class VendorMapper {
             dig11 = (r == 10 || r == 11) ? '0' : (char) (r + 48);
 
         } catch (InputMismatchException e) {
-            throw new InvalidDocumentException("CPF deve ser somente para CLT ou OUTSOURCING!");
+            throw new InvalidDocumentException("CPF com formato inválido!");
         }
     }
 
     public static void isValidCNPJ(String cnpj) {
         cnpj = cnpj.replaceAll("\\D", "");
         if (cnpj.length() != 14 || cnpj.matches("(\\d)\\1{13}"))
-            throw new InvalidDocumentException("CNPJ deve ser somente para PJ!");
+            throw new InvalidDocumentException("CNPJ com formato inválido!");
 
         try {
             char dig13, dig14;
@@ -118,7 +121,7 @@ public class VendorMapper {
             dig14 = (r == 0 || r == 1) ? '0' : (char) ((11 - r) + 48);
 
         } catch (InputMismatchException e) {
-            throw new InvalidDocumentException("CNPJ deve ser somente para PJ!");
+            throw new InvalidDocumentException("CNPJ com formato inválido!");
         }
     }
 
