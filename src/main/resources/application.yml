@@ -9,5 +9,11 @@ spring:
       ddl-auto: update
     show-sql: true
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: [ "prometheus" ]
+
 mock:
   url: http://localhost:1080
