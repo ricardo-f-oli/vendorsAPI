@@ -3,6 +3,7 @@ package com.example.vendorsAPI.domain.service;
 import com.example.vendorsAPI.domain.entities.Vendor;
 import com.example.vendorsAPI.domain.entities.enums.ContractTypeEnum;
 import com.example.vendorsAPI.domain.repository.VendorRepository;
+import com.example.vendorsAPI.exceptions.InvalidDocumentException;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -20,6 +21,9 @@ public class CreateVendorService {
         this.branchAPICallerService = branchAPICallerService;
     }
     public Vendor createVendor(Vendor vendor, String branchName) {
+        if(!isUnique(vendor.getDocument())){
+            throw new InvalidDocumentException("CPF ou CNPJ já cadastrado na base de dados!");
+        }
         vendor.setRegistration(GenerateRegistration(vendor.getContractTypeEnum()));
         vendor.setBranch(branchAPICallerService.getBranch(branchName));
         vendorRepository.save(vendor);
@@ -34,5 +38,9 @@ public class CreateVendorService {
             } while (this.vendorRepository.findByRegistration(registration).isPresent());
 
             return registration;
+    }
+
+    private boolean isUnique(String document) {
+        return !vendorRepository.existsByDocument(document);
     }
 }
