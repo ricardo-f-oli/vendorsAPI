@@ -6,6 +6,7 @@ import com.example.vendorsAPI.domain.repository.VendorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SearchVendorService {
@@ -25,15 +26,13 @@ public class SearchVendorService {
         return vendorRepository.findByContractTypeEnum(ContractTypeEnum.fromValue(contractType));
     }
     public Vendor findByRegistration(String registration) {
-        Vendor vendor = new Vendor();
         if (vendorRepository.findByRegistration(registration).isPresent()) {
-            vendor = vendorRepository.findByRegistration(registration).get();
-            return vendor;
+            return vendorRepository.findByRegistration(registration).get();
         } else {
             throw new RuntimeException("Seller not found with registration: " + registration);
         }
     }
-    public Vendor findById(int id) {
-        return new Vendor();
+    public Optional<Vendor> findVendorById(long id) {
+        return vendorRepository.findById(id);
     }
 }

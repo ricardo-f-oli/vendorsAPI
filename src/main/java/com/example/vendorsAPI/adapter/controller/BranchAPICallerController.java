@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/external")
 public class BranchAPICallerController {
 
-    @Autowired
-    private BranchAPICallerService branchAPICallerService;
+    private final BranchAPICallerService branchAPICallerService;
+
+    public BranchAPICallerController(BranchAPICallerService branchAPICallerService) {
+        this.branchAPICallerService = branchAPICallerService;
+    }
 
     @GetMapping("/branch")
     public Branch getBranch(String branchName) {

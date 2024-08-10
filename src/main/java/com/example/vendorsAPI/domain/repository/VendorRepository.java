@@ -13,8 +13,6 @@ public interface VendorRepository extends JpaRepository<Vendor, Long> {
 
     Optional<Vendor> findByRegistration(String registration);
 
-    void deleteByRegistration(String registration);
-
 //    List<Vendor> findByBranch(String branchName);
 
     List<Vendor> findByContractTypeEnum(ContractTypeEnum contractType);

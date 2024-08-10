@@ -17,6 +17,6 @@ public class DeleteVendorController {
 
     @DeleteMapping("/vendor/{registration}")
     public void deleteVendor(@PathVariable String registration) {
-        deleteVendorService.delete(registration);
+        deleteVendorService.deleteByRegistration(registration);
     }
 }
