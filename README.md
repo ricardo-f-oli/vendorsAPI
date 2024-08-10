@@ -1,27 +1,47 @@
+# Vendors API
 This repository contains a RESTful API for managing sellers, offering full CRUD (Create, Read, Update, Delete) operations. The API is designed to be easy to integrate with, providing endpoints to handle seller data efficiently.
 
 Features:
 
-Create: Add new sellers with comprehensive data fields.
-Read: Retrieve detailed information about individual or multiple sellers.
-Update: Modify existing seller information.
-Delete: Remove sellers from the database.
-Technologies Used:
+Create: Add new vendors with comprehensive data fields.
 
-Backend: [Node.js / Django / Spring Boot] (specify the framework you're using)
-Database: [MongoDB / PostgreSQL / MySQL] (specify the database you're using)
-Authentication: JWT (JSON Web Tokens) for secure access.
-Getting Started:
+Read: Retrieve detailed information about individual or multiple vendors.
 
-Clone the repository.
-Install dependencies using npm install / pip install -r requirements.txt / mvn install.
-Configure the database connection.
-Run the application using npm start / python manage.py runserver / mvn spring-boot:run.
-API Endpoints:
+Update: Modify existing vendors information.
 
-POST /sellers: Create a new seller.
-GET /sellers: Get a list of all sellers.
-GET /sellers/:id: Get details of a specific seller.
-PUT /sellers/:id: Update a specific seller's information.
-DELETE /sellers/:id: Delete a specific seller.
-Feel free to contribute by submitting issues or pull requests. For detailed documentation, refer to the docs directory.
+Delete: Remove vendors from the database.
+
+## Technologies Used:
+- **Java 21**
+- **Spring Boot 3**
+- **Maven**
+- **Docker** & **Docker Compose**
+- **PostgresSQL**
+- **OpenAPI** (contract in `src/main/resources/vendors.yml`)
+- **Prometheus** & **Grafana**
+- **Junit 5**
+
+## Step-by-step start guide
+### 1. Clone the repository
+Git clone the repository, use clean and install to verify that maven downloaded the required dependencies
+### 2. Start docker
+Using `docker-compose up -d`, to initialize containers with database, external API, Grafana and Prometheus
+### 3. Run the application
+Run the application in debug mode if necessary.
+
+## API Endpoints:
+All API endpoints can be found in `src/main/resources/vendors.yml`
+- **POST example**
+utilizing the following payload and URI to create a new vendor: 
+`localhost:8080/v1/vendor`
+```
+{
+  "name": "John",
+  "birthday": "01-01-2017",
+  "document": "CPF ou CNPJ",
+  "email": "rese@email.com",
+  "contractType": "outsourcing",
+  "branch": "branch name"
+}
+```
+
